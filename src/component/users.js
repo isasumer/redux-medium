@@ -1,29 +1,33 @@
-import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import {getUsers} from '../store/actions/usersAction'
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { getUsers } from "../store/actions/usersAction";
 
- class users extends Component {
-    componentDidMount(){
-        this.props.getUsers()
-        
+const Users = (props) => {
+  const [jokes, setNewJokes] = useState(true);
+  useEffect(() => {
+    for (let i = 0; i < 5; i++) {
+      props.getUsers("sport");
     }
-    render() {
-        const {users} = this.props.users
-        console.log(this.props.users)
+  }, [jokes]);
 
-        
-        return (
-            <div>
-                {users.map(u => 
-                     <React.Fragment key={u.id}>
-                         <h6 >{u.name}</h6> 
-                     </React.Fragment>
-                )}
-            </div>
-        )
-    }
-}
+  console.log(props.users.users);
 
-const mapStateToProps  = (state) => ({users:state.users})
+  return (
+    <div>
+      <button onClick={() => setNewJokes(!jokes)}>New Jokes</button>
+      {props.users.users.map((u) => (
+        <React.Fragment key={u.id}>
+          <h6>{u.value}</h6>
+          <h6>{u.created_at}</h6>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
 
-export default connect(mapStateToProps, {getUsers})(users)
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+  };
+};
+export default connect(mapStateToProps, { getUsers })(Users);

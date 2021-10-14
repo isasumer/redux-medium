@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
+import "./App.css";
 
-import Users from './component/users'
-
+import Users from "./component/users";
 
 function App() {
   return (
     <div className="App">
-         <h1>Redux Tutorial</h1>
-         <Users/>
-   
+      <h1>Redux Tutorial for Template</h1>
+      <Users />
     </div>
   );
 }
